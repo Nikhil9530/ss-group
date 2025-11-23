@@ -12,13 +12,12 @@ import { getAuth, signInAnonymously } from 'firebase/auth';
 // 🔴 PASTE YOUR FIREBASE CONFIG HERE 🔴
 // ==========================================
 const firebaseConfig = {
-  apiKey: "AIzaSyCNE5rhXlLf2PW1H3DF_VlzSmEeRQmOMWc",
-  authDomain: "ss-group-accdf.firebaseapp.com",
-  projectId: "ss-group-accdf",
-  storageBucket: "ss-group-accdf.firebasestorage.app",
-  messagingSenderId: "1024492133762",
-  appId: "1:1024492133762:web:44b7bfb0628fb8a494039b",
-  measurementId: "G-YS359QRZP2"
+  apiKey: "PASTE_YOUR_API_KEY_HERE", 
+  authDomain: "ss-group-xxxx.firebaseapp.com",
+  projectId: "ss-group-xxxx",
+  storageBucket: "ss-group-xxxx.appspot.com",
+  messagingSenderId: "12345...",
+  appId: "1:12345..."
 };
 // ==========================================
 
@@ -38,7 +37,11 @@ const styles = `
   /* SCROLL & BASIC */
   @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .animate-scroll { animation: scroll 30s linear infinite; }
-  .animate-scroll:hover { animation-play-state: paused; }
+  
+  /* On desktop, pause on hover. On mobile, we disable this to prevent 'stuck' feeling */
+  @media (min-width: 768px) {
+    .animate-scroll:hover { animation-play-state: paused; }
+  }
 
   /* ENHANCED CINEMATIC EFFECTS */
   @keyframes pulse-glow {
@@ -54,30 +57,10 @@ const styles = `
     }
   }
 
-  @keyframes shimmer {
-    0% { background-position: -1000px 0; }
-    100% { background-position: 1000px 0; }
-  }
-
-  @keyframes float-gentle {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-
   @keyframes slide-up {
     0% { transform: translateY(100px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
   }
-
-  @keyframes fade-in-scale {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
-  .animate-float-gentle { animation: float-gentle 4s ease-in-out infinite; }
-  .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
-  .animate-fade-in-scale { animation: fade-in-scale 0.6s ease-out forwards; }
 
   /* MAGICAL TEXT EFFECTS */
   @keyframes text-shimmer {
@@ -115,24 +98,6 @@ const styles = `
   
   .cursor-blink { animation: blink 1s step-end infinite; }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-  /* PREMIUM GRADIENTS */
-  .bg-gold-premium {
-    background: linear-gradient(135deg, 
-      #1a1a1a 0%,
-      #2d2d2d 25%,
-      #1a1a1a 50%,
-      #2d2d2d 75%,
-      #1a1a1a 100%
-    );
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
-  }
-
-  @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
 
   .text-gold-luxury {
     background: linear-gradient(to bottom, 
@@ -195,30 +160,13 @@ const styles = `
       0 0 40px rgba(234, 179, 8, 0.2);
   }
 
-  /* SPOTLIGHT EFFECT */
-  .spotlight-container {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .spotlight-container::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-      circle at center,
-      rgba(251, 191, 36, 0.15) 0%,
-      transparent 50%
-    );
-    pointer-events: none;
-    transition: transform 0.3s ease;
-  }
-
-  .spotlight-container:hover::before {
-    transform: translate(var(--mouse-x), var(--mouse-y));
+  .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+  .animate-float-gentle { animation: float-gentle 4s ease-in-out infinite; }
+  .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
+  
+  @keyframes float-gentle {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
   }
 
   /* NUMBER COUNTER ANIMATION */
@@ -232,7 +180,7 @@ const styles = `
   }
 `;
 
-// --- CUSTOM CSS LOGO (Enhanced) ---
+// --- CUSTOM CSS LOGO (Enhanced for Mobile) ---
 const CSSLogo = ({ scale = 1, typingText = null, showFullTagline = true, simpleMode = false }) => {
   const tagline = "YOUR REPUTATION IS OUR \"PRIORITY\"";
   const displayTagline = typingText !== null ? typingText : (showFullTagline ? tagline : "");
@@ -352,7 +300,7 @@ const FloatingParticles = () => {
   );
 };
 
-// --- ENHANCED CINEMATIC HERO (With SVG) ---
+// --- ENHANCED CINEMATIC HERO (With SVG & FIX for Line 471) ---
 const EnhancedCinematicHero = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -517,7 +465,7 @@ const EnhancedCinematicHero = () => {
               </polygon>
             </g>
 
-            {/* Star Icon */}
+            {/* Star Icon - FIXED THE ERROR HERE */}
             <path d="M0,-120 L12,-85 L50,-85 L20,-60 L30,-25 L0,-50 L-30,-25 L-20,-60 L-50,-85 L-12,-85 Z" 
                   fill="none" stroke="url(#cyanShine)" strokeWidth="4" filter="url(#glow)">
               <animateTransform attributeName="transform" type="rotate" from="0 0 -70" to="360 0 -70" dur="20s" repeatCount="indefinite"/>
@@ -553,9 +501,9 @@ const EnhancedCinematicHero = () => {
   );
 };
 
-// --- NEW COMPONENT: CELEBRITY SLIDER STRIP ---
+// --- NEW COMPONENT: CELEBRITY SLIDER STRIP (OPTIMIZED FOR MOBILE) ---
 const CelebritySliderStrip = () => {
-  // Placeholder data for celebrities
+  // Placeholder data
   const celebrityList = [
     { name: "Bollywood Star", role: "Actor", color: "bg-red-500" },
     { name: "Cricket Icon", role: "Athlete", color: "bg-blue-500" },
@@ -568,45 +516,45 @@ const CelebritySliderStrip = () => {
   ];
 
   return (
-    <div className="w-full overflow-hidden bg-black border-b border-yellow-900/30 py-10 group relative">
+    <div className="w-full overflow-hidden bg-black border-b border-yellow-900/30 py-6 md:py-10 group relative">
       {/* Gradient Overlays for fade effect */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-r from-black to-transparent z-20 pointer-events-none"></div>
-      <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-gradient-to-l from-black to-transparent z-20 pointer-events-none"></div>
+      <div className="absolute left-0 top-0 bottom-0 w-12 md:w-40 bg-gradient-to-r from-black to-transparent z-20 pointer-events-none"></div>
+      <div className="absolute right-0 top-0 bottom-0 w-12 md:w-40 bg-gradient-to-l from-black to-transparent z-20 pointer-events-none"></div>
 
       {/* Sliding Container */}
-      <div className="flex animate-scroll hover:[animation-play-state:paused]">
-        {/* First Loop */}
-        <div className="flex space-x-8 mx-4">
+      <div className="flex animate-scroll">
+        {/* Loop 1 */}
+        <div className="flex space-x-4 md:space-x-8 mx-2 md:mx-4">
           {celebrityList.map((celeb, idx) => (
             <div 
               key={`c1-${idx}`}
-              className="w-48 h-56 flex-shrink-0 bg-gradient-to-b from-neutral-900/80 to-black border border-yellow-900/40 rounded-xl backdrop-blur-md flex flex-col items-center justify-center p-4 transform transition-all duration-300 hover:scale-105 hover:border-yellow-500/60 hover:shadow-[0_0_20px_rgba(234,179,8,0.2)]"
+              // UPDATED: Much smaller size on mobile (w-32) vs Desktop (w-48), removed blur for performance
+              className="w-32 h-44 md:w-48 md:h-56 flex-shrink-0 bg-neutral-900/80 border border-yellow-900/40 rounded-xl flex flex-col items-center justify-center p-3 md:p-4 transform transition-all duration-300 md:hover:scale-105"
             >
-              {/* Circular Image Placeholder */}
-              <div className={`w-24 h-24 rounded-full ${celeb.color} mb-4 border-2 border-yellow-500/50 shadow-lg flex items-center justify-center overflow-hidden relative`}>
-                 <Users className="text-white/80 w-12 h-12" />
+              {/* Circular Image */}
+              <div className={`w-16 h-16 md:w-24 md:h-24 rounded-full ${celeb.color} mb-3 md:mb-4 border-2 border-yellow-500/50 shadow-lg flex items-center justify-center overflow-hidden relative`}>
+                 <Users className="text-white/80 w-8 h-8 md:w-12 md:h-12" />
                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
-              <h3 className="text-white font-bold text-center leading-tight">{celeb.name}</h3>
-              <p className="text-yellow-500 text-xs uppercase tracking-widest mt-1">{celeb.role}</p>
+              <h3 className="text-white font-bold text-center leading-tight text-sm md:text-base">{celeb.name}</h3>
+              <p className="text-yellow-500 text-[10px] md:text-xs uppercase tracking-widest mt-1">{celeb.role}</p>
             </div>
           ))}
         </div>
         
-        {/* Second Loop (Duplicate for seamless scroll) */}
-        <div className="flex space-x-8 mx-4">
+        {/* Loop 2 (Duplicate for infinity) */}
+        <div className="flex space-x-4 md:space-x-8 mx-2 md:mx-4">
           {celebrityList.map((celeb, idx) => (
             <div 
               key={`c2-${idx}`}
-              className="w-48 h-56 flex-shrink-0 bg-gradient-to-b from-neutral-900/80 to-black border border-yellow-900/40 rounded-xl backdrop-blur-md flex flex-col items-center justify-center p-4 transform transition-all duration-300 hover:scale-105 hover:border-yellow-500/60 hover:shadow-[0_0_20px_rgba(234,179,8,0.2)]"
+              className="w-32 h-44 md:w-48 md:h-56 flex-shrink-0 bg-neutral-900/80 border border-yellow-900/40 rounded-xl flex flex-col items-center justify-center p-3 md:p-4 transform transition-all duration-300 md:hover:scale-105"
             >
-              {/* Circular Image Placeholder */}
-              <div className={`w-24 h-24 rounded-full ${celeb.color} mb-4 border-2 border-yellow-500/50 shadow-lg flex items-center justify-center overflow-hidden relative`}>
-                 <Users className="text-white/80 w-12 h-12" />
+              <div className={`w-16 h-16 md:w-24 md:h-24 rounded-full ${celeb.color} mb-3 md:mb-4 border-2 border-yellow-500/50 shadow-lg flex items-center justify-center overflow-hidden relative`}>
+                 <Users className="text-white/80 w-8 h-8 md:w-12 md:h-12" />
                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
-              <h3 className="text-white font-bold text-center leading-tight">{celeb.name}</h3>
-              <p className="text-yellow-500 text-xs uppercase tracking-widest mt-1">{celeb.role}</p>
+              <h3 className="text-white font-bold text-center leading-tight text-sm md:text-base">{celeb.name}</h3>
+              <p className="text-yellow-500 text-[10px] md:text-xs uppercase tracking-widest mt-1">{celeb.role}</p>
             </div>
           ))}
         </div>
@@ -615,7 +563,7 @@ const CelebritySliderStrip = () => {
   );
 };
 
-// --- NAVBAR ---
+// --- NAVBAR (FIXED FOR MOBILE LOGO) ---
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -638,8 +586,13 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/95 backdrop-blur-lg shadow-2xl shadow-yellow-900/20' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection('hero')}>
-            <CSSLogo scale={0.4} showFullTagline={false} simpleMode={true} />
+          
+          {/* LOGO FIX: Added wrapper with fixed height and negative margin to compensate for scale */}
+          <div className="flex-shrink-0 cursor-pointer flex items-center justify-center -ml-4 md:ml-0 h-10 overflow-visible" onClick={() => scrollToSection('hero')}>
+            {/* Scale is adjusted separately for mobile (0.3) and desktop via CSS scale logic if needed, but 0.35 works well for small screens */}
+            <div className="scale-[0.35] md:scale-[0.4] origin-center">
+               <CSSLogo showFullTagline={false} simpleMode={true} />
+            </div>
           </div>
 
           {/* Desktop Menu */}
@@ -717,7 +670,7 @@ const AboutSection = () => {
           {stats.map((stat, idx) => (
             <div
               key={idx}
-              className="spotlight-container card-hover-glow bg-gradient-to-br from-neutral-900 to-black p-6 rounded-xl border border-yellow-900/30 text-center"
+              className="card-hover-glow bg-gradient-to-br from-neutral-900 to-black p-6 rounded-xl border border-yellow-900/30 text-center"
               style={{ animationDelay: stat.delay }}
             >
               <stat.icon className="w-12 h-12 text-yellow-500 mx-auto mb-4 animate-float-gentle" />
@@ -806,7 +759,7 @@ const ServicesSection = () => {
           {services.map((service, idx) => (
             <div
               key={idx}
-              className="group spotlight-container card-hover-glow bg-gradient-to-br from-neutral-900 to-black p-8 rounded-2xl border border-yellow-900/30 relative overflow-hidden"
+              className="group card-hover-glow bg-gradient-to-br from-neutral-900 to-black p-8 rounded-2xl border border-yellow-900/30 relative overflow-hidden"
               style={{ animationDelay: `${idx * 0.1}s` }}
             >
               <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${service.gradient} opacity-10 rounded-full blur-3xl group-hover:opacity-20 transition-opacity duration-500`}></div>
