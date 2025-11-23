@@ -12,12 +12,13 @@ import { getAuth, signInAnonymously } from 'firebase/auth';
 // 🔴 PASTE YOUR FIREBASE CONFIG HERE 🔴
 // ==========================================
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY_HERE", 
-  authDomain: "ss-group-xxxx.firebaseapp.com",
-  projectId: "ss-group-xxxx",
-  storageBucket: "ss-group-xxxx.appspot.com",
-  messagingSenderId: "12345...",
-  appId: "1:12345..."
+  apiKey: "AIzaSyCNE5rhXlLf2PW1H3DF_VlzSmEeRQmOMWc",
+  authDomain: "ss-group-accdf.firebaseapp.com",
+  projectId: "ss-group-accdf",
+  storageBucket: "ss-group-accdf.firebasestorage.app",
+  messagingSenderId: "1024492133762",
+  appId: "1:1024492133762:web:44b7bfb0628fb8a494039b",
+  measurementId: "G-YS359QRZP2"
 };
 // ==========================================
 
@@ -180,7 +181,7 @@ const styles = `
   }
 `;
 
-// --- CUSTOM CSS LOGO (Enhanced for Mobile) ---
+// --- CUSTOM CSS LOGO (COMPLETELY RESPONSIVE NOW) ---
 const CSSLogo = ({ scale = 1, typingText = null, showFullTagline = true, simpleMode = false }) => {
   const tagline = "YOUR REPUTATION IS OUR \"PRIORITY\"";
   const displayTagline = typingText !== null ? typingText : (showFullTagline ? tagline : "");
@@ -207,26 +208,29 @@ const CSSLogo = ({ scale = 1, typingText = null, showFullTagline = true, simpleM
         </div>
       </div>
 
-      <div className={`relative border-l-4 border-r-4 border-b-4 border-yellow-600 min-w-[300px] ${simpleMode ? 'px-4 pt-4 pb-2 min-w-[220px]' : 'px-10 pt-8 pb-4'} bg-gradient-to-b from-black via-neutral-900 to-black`}>
+      {/* FIX: Removed fixed min-w, added max-w-[90vw] to fit any mobile screen */}
+      <div className={`relative border-l-4 border-r-4 border-b-4 border-yellow-600 w-auto max-w-[90vw] ${simpleMode ? 'px-4 pt-4 pb-2 min-w-[220px]' : 'px-6 md:px-10 pt-6 md:pt-8 pb-3 md:pb-4'} bg-gradient-to-b from-black via-neutral-900 to-black`}>
         <div className="absolute top-0 left-0 w-[32%] h-1 bg-yellow-500 shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
         <div className="absolute top-0 left-0 w-1 h-6 bg-yellow-500"></div>
         <div className="absolute top-0 right-0 w-[32%] h-1 bg-yellow-500 shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
         <div className="absolute top-0 right-0 w-1 h-6 bg-yellow-500"></div>
 
-        <h1 className={`${simpleMode ? 'text-5xl' : 'text-7xl'} font-black tracking-wide text-gold-luxury font-sans leading-none text-center`}>
+        {/* FIX: Reduced text size on mobile (text-5xl) vs desktop (text-7xl) */}
+        <h1 className={`${simpleMode ? 'text-5xl' : 'text-5xl md:text-7xl'} font-black tracking-wide text-gold-luxury font-sans leading-none text-center whitespace-nowrap`}>
           SS GROUP
         </h1>
         
         {!simpleMode && (
-          <p className="text-center font-serif text-2xl text-yellow-100 tracking-[0.1em] mt-2 italic drop-shadow-[0_2px_10px_rgba(251,191,36,0.5)]">
+          <p className="text-center font-serif text-xl md:text-2xl text-yellow-100 tracking-[0.1em] mt-2 italic drop-shadow-[0_2px_10px_rgba(251,191,36,0.5)]">
             The Silent Sage
           </p>
         )}
       </div>
 
       {!simpleMode && (
-        <div className="h-8 mt-4 flex items-center justify-center">
-          <p className="text-[0.7rem] md:text-[0.8rem] text-yellow-500 tracking-[0.2em] uppercase font-bold text-center min-w-[300px]">
+        <div className="h-8 mt-4 flex items-center justify-center w-full px-4">
+          {/* FIX: Allow text to wrap if needed on very small screens */}
+          <p className="text-[0.65rem] md:text-[0.8rem] text-yellow-500 tracking-[0.15em] md:tracking-[0.2em] uppercase font-bold text-center">
             {displayTagline}
             {typingText !== null && typingText.length < tagline.length && (
                <span className="cursor-blink text-yellow-200 ml-1">|</span>
@@ -265,9 +269,9 @@ const IntroAnimation = ({ onComplete }) => {
     <div className={`fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden ${phase === 'exit' ? 'animate-zoom-out-exit' : ''}`}>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-yellow-900/30 via-black to-black pointer-events-none"></div>
       <div className="absolute inset-0 hero-stars opacity-30"></div>
-      <div className="relative z-10 flex flex-col items-center justify-center">
-        <div className={`animate-come-out`}>
-           <CSSLogo scale={1.2} typingText={phase === 'logo' ? "" : text} showFullTagline={true} />
+      <div className="relative z-10 flex flex-col items-center justify-center w-full px-4">
+        <div className={`animate-come-out flex justify-center w-full`}>
+           <CSSLogo scale={1} typingText={phase === 'logo' ? "" : text} showFullTagline={true} />
         </div>
       </div>
     </div>
@@ -465,7 +469,7 @@ const EnhancedCinematicHero = () => {
               </polygon>
             </g>
 
-            {/* Star Icon - FIXED THE ERROR HERE */}
+            {/* Star Icon */}
             <path d="M0,-120 L12,-85 L50,-85 L20,-60 L30,-25 L0,-50 L-30,-25 L-20,-60 L-50,-85 L-12,-85 Z" 
                   fill="none" stroke="url(#cyanShine)" strokeWidth="4" filter="url(#glow)">
               <animateTransform attributeName="transform" type="rotate" from="0 0 -70" to="360 0 -70" dur="20s" repeatCount="indefinite"/>
@@ -587,10 +591,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* LOGO FIX: Added wrapper with fixed height and negative margin to compensate for scale */}
-          <div className="flex-shrink-0 cursor-pointer flex items-center justify-center -ml-4 md:ml-0 h-10 overflow-visible" onClick={() => scrollToSection('hero')}>
-            {/* Scale is adjusted separately for mobile (0.3) and desktop via CSS scale logic if needed, but 0.35 works well for small screens */}
-            <div className="scale-[0.35] md:scale-[0.4] origin-center">
+          {/* LOGO FIX: Added wrapper with fixed height, align-left, and origin-left */}
+          <div className="flex-shrink-0 cursor-pointer flex items-center justify-start h-10 overflow-visible" onClick={() => scrollToSection('hero')}>
+            {/* Scale origin-left ensures it shrinks to the left, not the center */}
+            <div className="scale-[0.35] md:scale-[0.4] origin-left">
                <CSSLogo showFullTagline={false} simpleMode={true} />
             </div>
           </div>
@@ -857,25 +861,6 @@ const WhyUsSection = () => {
               </p>
             </div>
           ))}
-        </div>
-
-        {/* Testimonial Showcase */}
-        <div className="mt-20 bg-gradient-to-br from-yellow-900/10 to-transparent p-12 rounded-3xl border border-yellow-900/30">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <div className="flex-shrink-0">
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500 to-orange-600 flex items-center justify-center">
-                <Star className="w-12 h-12 text-white fill-white" />
-              </div>
-            </div>
-            <div className="flex-1">
-              <p className="text-2xl md:text-3xl font-bold text-white mb-4 italic">
-                "SS Group transformed our brand overnight. The celebrity partnership they orchestrated didn't just meet our expectations—it shattered them."
-              </p>
-              <p className="text-yellow-500 font-semibold text-lg">
-                — Fortune 500 CMO
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
