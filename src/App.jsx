@@ -718,14 +718,14 @@ const ServicesSection = () => {
       icon: Handshake,
       title: 'Celebrity Endorsements',
       description: 'Connect with A-list stars who embody your brand values and amplify your message to millions.',
-      features: ['Strategic Star Matching', 'Contract Negotiation', 'Campaign Integration'],
+      features: ['Strategic Star Matching', 'Authentic Partnership Development', 'Campaign Integration'],
       gradient: 'from-yellow-600 to-orange-600'
     },
     {
       icon: Camera,
       title: 'Event Appearances',
       description: 'Transform your events into unforgettable experiences with celebrity presence that creates buzz.',
-      features: ['Red Carpet Moments', 'Meet & Greets', 'Live Performances'],
+      features: ['VIP Guest Experiences', 'Meet & Greets', 'Live Performances'],
       gradient: 'from-cyan-600 to-blue-600'
     },
     {
@@ -739,7 +739,7 @@ const ServicesSection = () => {
       icon: TrendingUp,
       title: 'Brand Ambassadorships',
       description: 'Build long-term partnerships with celebrities who become the face of your brand evolution.',
-      features: ['Multi-Year Deals', 'Exclusive Rights', 'Global Campaigns'],
+      features: ['Consistent Brand Voice', 'Authentic Brand Storytelling', 'Integrated Marketing Presence'],
       gradient: 'from-green-600 to-emerald-600'
     }
   ];
@@ -1043,7 +1043,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 mb-1">Phone</p>
-                    <p className="text-white font-semibold text-lg">+91 (XXX) XXX-XXXX</p>
+                    <p className="text-white font-semibold text-lg">+91 (724) 061-0195</p>
                   </div>
                 </div>
 
@@ -1053,7 +1053,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 mb-1">Email</p>
-                    <p className="text-white font-semibold text-lg">contact@ssgroup.com</p>
+                    <p className="text-white font-semibold text-lg">business@ssentertainments.com</p>
                   </div>
                 </div>
 
@@ -1063,7 +1063,7 @@ const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 mb-1">Location</p>
-                    <p className="text-white font-semibold text-lg">Mumbai, India</p>
+                    <p className="text-white font-semibold text-lg">Kota, Rajasthan, India</p>
                   </div>
                 </div>
               </div>
