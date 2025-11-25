@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Zap, Award, Mic, Users, Phone, Mail, MapPin, ChevronDown, Menu, X, 
   CheckCircle, ArrowRight, Star, Briefcase, Camera, Handshake, Sparkles, 
-  TrendingUp, Shield, Clock, Trophy 
+  TrendingUp, Shield, Clock, Trophy, MessageCircle
 } from 'lucide-react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -37,7 +37,7 @@ try {
 const styles = `
   /* SCROLL & BASIC */
   @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-  .animate-scroll { animation: scroll 30s linear infinite; }
+  .animate-scroll { animation: scroll 15s linear infinite; }
   
   /* On desktop, pause on hover. On mobile, we disable this to prevent 'stuck' feeling */
   @media (min-width: 768px) {
@@ -181,7 +181,7 @@ const styles = `
   }
 `;
 
-// --- CUSTOM CSS LOGO (COMPLETELY RESPONSIVE NOW) ---
+// --- CUSTOM CSS LOGO (COMPLETELY RESPONSIVE) ---
 const CSSLogo = ({ scale = 1, typingText = null, showFullTagline = true, simpleMode = false }) => {
   const tagline = "YOUR REPUTATION IS OUR \"PRIORITY\"";
   const displayTagline = typingText !== null ? typingText : (showFullTagline ? tagline : "");
@@ -304,7 +304,7 @@ const FloatingParticles = () => {
   );
 };
 
-// --- ENHANCED CINEMATIC HERO (With SVG & FIX for Line 471) ---
+// --- ENHANCED CINEMATIC HERO (With SVG) ---
 const EnhancedCinematicHero = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -505,18 +505,22 @@ const EnhancedCinematicHero = () => {
   );
 };
 
-// --- NEW COMPONENT: CELEBRITY SLIDER STRIP (OPTIMIZED FOR MOBILE) ---
+// --- NEW COMPONENT: CELEBRITY SLIDER STRIP (OPTIMIZED FOR MOBILE & UPDATED DATA) ---
 const CelebritySliderStrip = () => {
-  // Placeholder data
+  // Updated Celebrity List with specific names, roles, and image paths
   const celebrityList = [
-    { name: "Bollywood Star", role: "Actor", color: "bg-red-500" },
-    { name: "Cricket Icon", role: "Athlete", color: "bg-blue-500" },
-    { name: "Music Sensation", role: "Singer", color: "bg-purple-500" },
-    { name: "Fashion Mogul", role: "Model", color: "bg-pink-500" },
-    { name: "Tech Influencer", role: "Creator", color: "bg-green-500" },
-    { name: "Global Artist", role: "Performer", color: "bg-yellow-500" },
-    { name: "Rising Star", role: "Actor", color: "bg-orange-500" },
-    { name: "Social Icon", role: "Influencer", color: "bg-indigo-500" },
+    { name: "Sonu Sood", role: "Actor", color: "bg-blue-600", image: "/images/sonu.jpg" },
+    { name: "Jackie Shroff", role: "Actor", color: "bg-amber-700", image: "/images/jackie.jpg" },
+    { name: "Adah Sharma", role: "Actor", color: "bg-pink-600", image: "/images/adah.jpg" },
+    { name: "Sunil Grover", role: "Actor & Comedian", color: "bg-purple-600", image: "/images/sunil.jpg" },
+    { name: "Mahima Choudhary", role: "Actor", color: "bg-red-500", image: "/images/mahima.jpg" },
+    { name: "Ninja", role: "Singer & Actor", color: "bg-indigo-600", image: "/images/ninja.jpg" },
+    { name: "Golden Guys", role: "Social Icons", color: "bg-yellow-500", image: "/images/goldenguys.jpg" },
+    { name: "Rahul Roy", role: "Actor", color: "bg-teal-600", image: "/images/rahul.jpg" },
+    { name: "Shaji Chaudhary", role: "Actor", color: "bg-gray-700", image: "/images/shaji.jpg" },
+    { name: "Vindu Dara Singh", role: "Actor", color: "bg-orange-600", image: "/images/vindu.jpg" },
+    { name: "Vikram", role: "Actor", color: "bg-blue-800", image: "/images/vikram.jpg" },
+    { name: "Dhandha Nyoliwala", role: "Hip-Hop Artist", color: "bg-green-600", image: "/images/dhandha.jpg" },
   ];
 
   return (
@@ -532,21 +536,38 @@ const CelebritySliderStrip = () => {
           {celebrityList.map((celeb, idx) => (
             <div 
               key={`c1-${idx}`}
-              // UPDATED: Much smaller size on mobile (w-32) vs Desktop (w-48), removed blur for performance
+              // Much smaller size on mobile (w-32) vs Desktop (w-48), removed blur for performance
               className="w-32 h-44 md:w-48 md:h-56 flex-shrink-0 bg-neutral-900/80 border border-yellow-900/40 rounded-xl flex flex-col items-center justify-center p-3 md:p-4 transform transition-all duration-300 md:hover:scale-105"
             >
-              {/* Circular Image */}
+              {/* Circular Image Container */}
               <div className={`w-16 h-16 md:w-24 md:h-24 rounded-full ${celeb.color} mb-3 md:mb-4 border-2 border-yellow-500/50 shadow-lg flex items-center justify-center overflow-hidden relative`}>
-                 <Users className="text-white/80 w-8 h-8 md:w-12 md:h-12" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                 {/* Show Image if available, else show Icon */}
+                 <img 
+                   src={celeb.image} 
+                   alt={celeb.name}
+                   className="w-full h-full object-cover"
+                   onError={(e) => {
+                     // Fallback if image not found
+                     e.target.style.display = 'none'; 
+                     e.target.nextSibling.style.display = 'flex'; 
+                   }}
+                 />
+                 {/* Fallback Icon (Hidden by default if image loads) */}
+                 <div className="absolute inset-0 flex items-center justify-center hidden bg-inherit">
+                    <Users className="text-white/80 w-8 h-8 md:w-12 md:h-12" />
+                 </div>
+                 
+                 {/* Shine Effect Overlay */}
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
               </div>
-              <h3 className="text-white font-bold text-center leading-tight text-sm md:text-base">{celeb.name}</h3>
-              <p className="text-yellow-500 text-[10px] md:text-xs uppercase tracking-widest mt-1">{celeb.role}</p>
+              
+              <h3 className="text-white font-bold text-center leading-tight text-sm md:text-base px-1">{celeb.name}</h3>
+              <p className="text-yellow-500 text-[10px] md:text-xs uppercase tracking-widest mt-1 font-medium">{celeb.role}</p>
             </div>
           ))}
         </div>
         
-        {/* Loop 2 (Duplicate for infinity) */}
+        {/* Loop 2 (Duplicate for seamless scrolling) */}
         <div className="flex space-x-4 md:space-x-8 mx-2 md:mx-4">
           {celebrityList.map((celeb, idx) => (
             <div 
@@ -554,11 +575,23 @@ const CelebritySliderStrip = () => {
               className="w-32 h-44 md:w-48 md:h-56 flex-shrink-0 bg-neutral-900/80 border border-yellow-900/40 rounded-xl flex flex-col items-center justify-center p-3 md:p-4 transform transition-all duration-300 md:hover:scale-105"
             >
               <div className={`w-16 h-16 md:w-24 md:h-24 rounded-full ${celeb.color} mb-3 md:mb-4 border-2 border-yellow-500/50 shadow-lg flex items-center justify-center overflow-hidden relative`}>
-                 <Users className="text-white/80 w-8 h-8 md:w-12 md:h-12" />
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                 <img 
+                   src={celeb.image} 
+                   alt={celeb.name}
+                   className="w-full h-full object-cover"
+                   onError={(e) => {
+                     e.target.style.display = 'none'; 
+                     e.target.nextSibling.style.display = 'flex'; 
+                   }}
+                 />
+                 <div className="absolute inset-0 flex items-center justify-center hidden bg-inherit">
+                    <Users className="text-white/80 w-8 h-8 md:w-12 md:h-12" />
+                 </div>
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
               </div>
-              <h3 className="text-white font-bold text-center leading-tight text-sm md:text-base">{celeb.name}</h3>
-              <p className="text-yellow-500 text-[10px] md:text-xs uppercase tracking-widest mt-1">{celeb.role}</p>
+              
+              <h3 className="text-white font-bold text-center leading-tight text-sm md:text-base px-1">{celeb.name}</h3>
+              <p className="text-yellow-500 text-[10px] md:text-xs uppercase tracking-widest mt-1 font-medium">{celeb.role}</p>
             </div>
           ))}
         </div>
@@ -929,7 +962,7 @@ const ContactSection = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Contact Form */}
           <div className="card-hover-glow bg-gradient-to-br from-neutral-900 to-black p-8 rounded-2xl border border-yellow-900/30">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -969,7 +1002,7 @@ const ContactSection = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-black/50 border border-yellow-900/30 rounded-lg text-white focus:outline-none focus:border-yellow-500 transition-colors"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 (555) 000-0000"
                   />
                 </div>
                 <div>
@@ -994,11 +1027,11 @@ const ContactSection = () => {
                   className="w-full px-4 py-3 bg-black/50 border border-yellow-900/30 rounded-lg text-white focus:outline-none focus:border-yellow-500 transition-colors"
                 >
                   <option value="">Select budget range</option>
-                  <option value="<50k">Under $50,000</option>
-                  <option value="50k-100k">$50,000 - $100,000</option>
-                  <option value="100k-250k">$100,000 - $250,000</option>
-                  <option value="250k-500k">$250,000 - $500,000</option>
-                  <option value=">500k">$500,000+</option>
+                  <option value="<50k">Under 50,000</option>
+                  <option value="50k-100k">50,000 - 100,000</option>
+                  <option value="100k-250k">100,000 - 250,000</option>
+                  <option value="250k-500k">250,000 - 500,000</option>
+                  <option value=">500k">500,000+</option>
                 </select>
               </div>
 
@@ -1086,13 +1119,6 @@ const ContactSection = () => {
                 </div>
               </div>
             </div>
-
-            <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 p-6 rounded-2xl border border-yellow-500/30">
-              <p className="text-yellow-400 font-semibold text-center">
-                <Clock className="inline w-5 h-5 mr-2" />
-                24-48 Hour Response Time Guaranteed
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -1102,6 +1128,14 @@ const ContactSection = () => {
 
 // --- FOOTER ---
 const Footer = () => {
+  const [tooltip, setTooltip] = useState(null); // Track which icon is clicked
+
+  const handlePlaceholder = (e, platform) => {
+    e.preventDefault(); // STOPS the page jump
+    setTooltip(platform); // Shows the tooltip
+    setTimeout(() => setTooltip(null), 1500); // Hides it after 1.5s
+  };
+
   return (
     <footer className="relative bg-black border-t border-yellow-900/30 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1126,17 +1160,122 @@ const Footer = () => {
 
           <div>
             <h4 className="text-white font-bold text-lg mb-4">Connect</h4>
-            <div className="flex space-x-4">
-              {['facebook', 'twitter', 'instagram', 'linkedin'].map(social => (
-                <a 
-                  key={social}
-                  href="#"
-                  className="w-10 h-10 bg-yellow-900/20 rounded-full flex items-center justify-center hover:bg-yellow-900/40 transition-colors"
-                  aria-label={social}
+            <div className="flex space-x-4 items-center">
+              
+              {/* Instagram - Specific Link */}
+              <a 
+                href="https://www.instagram.com/ss_entertainments_official?igsh=MWVmeG05ODFhNTFocQ==" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-10 h-10 bg-yellow-900/20 rounded-full flex items-center justify-center hover:bg-yellow-900/40 transition-colors group"
+                aria-label="Instagram"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="text-yellow-500 group-hover:scale-110 transition-transform"
                 >
-                  <Users className="w-5 h-5 text-yellow-500" />
-                </a>
-              ))}
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+
+              {/* WhatsApp - Specific Link */}
+              <a 
+                href="https://wa.me/917240610195" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-10 h-10 bg-yellow-900/20 rounded-full flex items-center justify-center hover:bg-yellow-900/40 transition-colors group"
+                aria-label="WhatsApp"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="20" 
+                  height="20" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="text-yellow-500 group-hover:scale-110 transition-transform"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </a>
+
+              {/* Facebook - Placeholder with Tooltip */}
+              <div className="relative">
+                 {tooltip === 'facebook' && (
+                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded whitespace-nowrap animate-fade-in-scale z-50">
+                       Available Soon
+                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-yellow-500 rotate-45"></div>
+                    </div>
+                 )}
+                 <a 
+                   href="#" 
+                   onClick={(e) => handlePlaceholder(e, 'facebook')}
+                   className="w-10 h-10 bg-yellow-900/20 rounded-full flex items-center justify-center hover:bg-yellow-900/40 transition-colors group"
+                   aria-label="Facebook"
+                 >
+                   <svg 
+                     xmlns="http://www.w3.org/2000/svg" 
+                     width="20" 
+                     height="20" 
+                     viewBox="0 0 24 24" 
+                     fill="none" 
+                     stroke="currentColor" 
+                     strokeWidth="2" 
+                     strokeLinecap="round" 
+                     strokeLinejoin="round" 
+                     className="text-yellow-500 group-hover:scale-110 transition-transform"
+                   >
+                     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                   </svg>
+                 </a>
+              </div>
+
+              {/* LinkedIn - Placeholder with Tooltip */}
+              <div className="relative">
+                 {tooltip === 'linkedin' && (
+                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded whitespace-nowrap animate-fade-in-scale z-50">
+                       Available Soon
+                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-yellow-500 rotate-45"></div>
+                    </div>
+                 )}
+                 <a 
+                   href="#" 
+                   onClick={(e) => handlePlaceholder(e, 'linkedin')}
+                   className="w-10 h-10 bg-yellow-900/20 rounded-full flex items-center justify-center hover:bg-yellow-900/40 transition-colors group"
+                   aria-label="LinkedIn"
+                 >
+                   <svg 
+                     xmlns="http://www.w3.org/2000/svg" 
+                     width="20" 
+                     height="20" 
+                     viewBox="0 0 24 24" 
+                     fill="none" 
+                     stroke="currentColor" 
+                     strokeWidth="2" 
+                     strokeLinecap="round" 
+                     strokeLinejoin="round" 
+                     className="text-yellow-500 group-hover:scale-110 transition-transform"
+                   >
+                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                     <rect x="2" y="9" width="4" height="12"></rect>
+                     <circle cx="4" cy="4" r="2"></circle>
+                   </svg>
+                 </a>
+              </div>
+
             </div>
           </div>
         </div>
