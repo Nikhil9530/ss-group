@@ -1164,7 +1164,7 @@ const Footer = () => {
               
               {/* Instagram - Specific Link */}
               <a 
-                href="https://www.instagram.com/ss_entertainments_official?igsh=MWVmeG05ODFhNTFocQ==" 
+                href="https://www.instagram.com/ssgroup_official.in?igsh=MWhteGdqNjMwaHowMg==" 
                 target="_blank" 
                 rel="noreferrer"
                 className="w-10 h-10 bg-yellow-900/20 rounded-full flex items-center justify-center hover:bg-yellow-900/40 transition-colors group"
