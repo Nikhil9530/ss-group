@@ -39,7 +39,6 @@ const styles = `
   @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .animate-scroll { animation: scroll 15s linear infinite; }
   
-  /* On desktop, pause on hover. On mobile, we disable this to prevent 'stuck' feeling */
   @media (min-width: 768px) {
     .animate-scroll:hover { animation-play-state: paused; }
   }
@@ -181,55 +180,109 @@ const styles = `
   }
 `;
 
-// --- CUSTOM CSS LOGO (COMPLETELY RESPONSIVE) ---
+// --- NEW SVG LOGO COMPONENT (V5) ---
 const CSSLogo = ({ scale = 1, typingText = null, showFullTagline = true, simpleMode = false }) => {
   const tagline = "YOUR REPUTATION IS OUR \"PRIORITY\"";
   const displayTagline = typingText !== null ? typingText : (showFullTagline ? tagline : "");
 
   return (
-    <div className="relative flex flex-col items-center" style={{ transform: `scale(${scale})` }}>
-      <div className={`absolute flex flex-col items-center z-10 ${simpleMode ? '-top-9' : '-top-12'}`}>
-        <div className="flex space-x-1 mb-1 items-end">
-          <Star size={simpleMode ? 8 : 12} className="text-yellow-500 fill-yellow-500 animate-pulse" style={{animationDelay: '0s'}} />
-          <Star size={simpleMode ? 12 : 18} className="text-yellow-300 fill-yellow-300 mb-1 animate-pulse" style={{animationDelay: '0.2s'}} />
-          <Star size={simpleMode ? 8 : 12} className="text-yellow-500 fill-yellow-500 animate-pulse" style={{animationDelay: '0.4s'}} />
-        </div>
-        <div className={`relative ${simpleMode ? 'w-16 h-6' : 'w-24 h-8'}`}>
-            <div className="absolute bottom-0 w-full h-full bg-gradient-to-b from-gray-200 to-white rounded-b-full rounded-t-[50%] shadow-lg z-0 overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-300 to-transparent opacity-50"></div>
-            </div>
-            <div className="absolute bottom-3 w-full flex justify-center items-end space-x-0.5 z-10">
-              <div className={`${simpleMode ? 'w-2 h-2' : 'w-3 h-3'} bg-white rounded-full shadow-sm`}></div>
-              <div className={`${simpleMode ? 'w-3 h-3' : 'w-4 h-4'} bg-white rounded-full shadow-sm mb-1`}></div>
-              <div className={`${simpleMode ? 'w-4 h-4' : 'w-5 h-5'} bg-white rounded-full shadow-sm mb-2`}></div>
-              <div className={`${simpleMode ? 'w-3 h-3' : 'w-4 h-4'} bg-white rounded-full shadow-sm mb-1`}></div>
-              <div className={`${simpleMode ? 'w-2 h-2' : 'w-3 h-3'} bg-white rounded-full shadow-sm`}></div>
-            </div>
-        </div>
-      </div>
+    <div className="relative flex flex-col items-center justify-center" style={{ transform: `scale(${scale})` }}>
+      
+      {/* SVG LOGO START */}
+      <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" className="w-[300px] md:w-[500px] h-auto overflow-visible">
+          <defs>
+              <linearGradient id="goldGradientV5" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#B46B24" />
+                  <stop offset="20%" stopColor="#FCD34D" />
+                  <stop offset="50%" stopColor="#F59E0B" />
+                  <stop offset="80%" stopColor="#FCD34D" />
+                  <stop offset="100%" stopColor="#B46B24" />
+              </linearGradient>
+              
+              <linearGradient id="silverGradientV5" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#FFFFFF" />
+                  <stop offset="100%" stopColor="#9CA3AF" />
+              </linearGradient>
 
-      {/* FIX: Removed fixed min-w, added max-w-[90vw] to fit any mobile screen */}
-      <div className={`relative border-l-4 border-r-4 border-b-4 border-yellow-600 w-auto max-w-[90vw] ${simpleMode ? 'px-4 pt-4 pb-2 min-w-[220px]' : 'px-6 md:px-10 pt-6 md:pt-8 pb-3 md:pb-4'} bg-gradient-to-b from-black via-neutral-900 to-black`}>
-        <div className="absolute top-0 left-0 w-[32%] h-1 bg-yellow-500 shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
-        <div className="absolute top-0 left-0 w-1 h-6 bg-yellow-500"></div>
-        <div className="absolute top-0 right-0 w-[32%] h-1 bg-yellow-500 shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
-        <div className="absolute top-0 right-0 w-1 h-6 bg-yellow-500"></div>
+              <filter id="dropShadowV5" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+                  <feOffset dx="0" dy="2" result="offsetblur"/>
+                  <feFlood floodColor="#000000" floodOpacity="0.5"/>
+                  <feComposite in2="offsetblur" operator="in"/>
+                  <feMerge>
+                      <feMergeNode/>
+                      <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+              </filter>
+          </defs>
+  
+          {/* TOP ICON SECTION */}
+          <g transform="translate(300, 45)" filter="url(#dropShadowV5)">
+                {/* Swoosh */}
+                <path d="M-65,25 Q0,50 65,25 Q0,40 -65,25 Z" fill="url(#silverGradientV5)" />
 
-        {/* FIX: Reduced text size on mobile (text-5xl) vs desktop (text-7xl) */}
-        <h1 className={`${simpleMode ? 'text-5xl' : 'text-5xl md:text-7xl'} font-black tracking-wide text-gold-luxury font-sans leading-none text-center whitespace-nowrap`}>
-          SS GROUP
-        </h1>
-        
-        {!simpleMode && (
-          <p className="text-center font-serif text-xl md:text-2xl text-yellow-100 tracking-[0.1em] mt-2 italic drop-shadow-[0_2px_10px_rgba(251,191,36,0.5)]">
-            The Silent Sage
-          </p>
-        )}
-      </div>
+                {/* 5 Heads */}
+                <g fill="url(#silverGradientV5)">
+                  {/* 3rd Person (Center) */}
+                  <circle cx="0" cy="0" r="11" /> <path d="M-12,28 Q0,5 12,28 Z" />
+                  {/* 2nd & 4th People */}
+                  <circle cx="-25" cy="6" r="10" /> <path d="M-35,28 Q-25,12 -15,28 Z" />
+                  <circle cx="25" cy="6" r="10" /> <path d="M15,28 Q25,12 35,28 Z" />
+                  {/* 1st & 5th People */}
+                  <circle cx="-45" cy="14" r="8" opacity="0.8"/> <path d="M-52,28 Q-45,18 -38,28 Z" opacity="0.8"/>
+                  <circle cx="45" cy="14" r="8" opacity="0.8"/> <path d="M38,28 Q45,18 52,28 Z" opacity="0.8"/>
+                </g>
 
+              {/* Stars (Specific positioning) */}
+              <g fill="#F59E0B">
+                  {/* Center Star */}
+                  <polygon points="0,-22 5,-10 16,-10 7,-2 11,10 0,3 -11,10 -7,-2 -16,-10 -5,-10" 
+                            transform="translate(0, -5) scale(0.55)"/>
+                  {/* Left Star */}
+                  <polygon points="0,-22 5,-10 16,-10 7,-2 11,10 0,3 -11,10 -7,-2 -16,-10 -5,-10" 
+                            transform="translate(-45, 10) scale(0.4) rotate(-15)"/>
+                  {/* Right Star */}
+                  <polygon points="0,-22 5,-10 16,-10 7,-2 11,10 0,3 -11,10 -7,-2 -16,-10 -5,-10" 
+                            transform="translate(45, 10) scale(0.4) rotate(15)"/>
+              </g>
+          </g>
+  
+          {/* BRACKETS */}
+          <rect x="20" y="75" width="8" height="155" fill="url(#goldGradientV5)" />
+          <rect x="20" y="75" width="180" height="8" fill="url(#goldGradientV5)" />
+          <rect x="20" y="222" width="120" height="8" fill="url(#goldGradientV5)" />
+
+          <rect x="572" y="75" width="8" height="155" fill="url(#goldGradientV5)" />
+          <rect x="400" y="75" width="180" height="8" fill="url(#goldGradientV5)" />
+          <rect x="460" y="222" width="120" height="8" fill="url(#goldGradientV5)" />
+
+          {/* MAIN TEXT */}
+          <text 
+              x="300" 
+              y="185" 
+              textAnchor="middle" 
+              fontFamily="Arial Black, Arial, sans-serif" 
+              fontWeight="900" 
+              fontSize="100" 
+              fill="url(#goldGradientV5)" 
+              textLength="500" 
+              lengthAdjust="spacingAndGlyphs"
+          >
+              SS GROUP
+          </text>
+  
+          {/* SUB TEXT - Hidden in simple mode (Navbar) */}
+          
+            <text x="300" y="228" textAnchor="middle" fontFamily="'Times New Roman', serif" fontStyle="italic" fontWeight="bold" fontSize="28" fill="#FCD34D" style={{letterSpacing: '2px'}}>
+                The Silent Sage
+            </text>
+          
+      </svg>
+      {/* SVG LOGO END */}
+
+      {/* TYPING TAGLINE (Rendered below SVG) */}
       {!simpleMode && (
-        <div className="h-8 mt-4 flex items-center justify-center w-full px-4">
-          {/* FIX: Allow text to wrap if needed on very small screens */}
+        <div className="h-8 flex items-center justify-center w-full px-4 -mt-4">
           <p className="text-[0.65rem] md:text-[0.8rem] text-yellow-500 tracking-[0.15em] md:tracking-[0.2em] uppercase font-bold text-center">
             {displayTagline}
             {typingText !== null && typingText.length < tagline.length && (
